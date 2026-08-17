@@ -1,0 +1,299 @@
+# Tier 3: Dependability.
+# Internal, system-facing reliability: a factory that keeps producing good
+# output and can show that it does. Everything here is the system directed at
+# itself, not at the operator. IDs are stable.
+
+tier: dependability
+description: >
+  Whether the output can be trusted without watching the machinery produce it.
+  The word carries its engineering sense: service delivery that is justifiably
+  trusted, which makes self-monitoring, self-repair, integrity, verification,
+  control, cost transparency and evidence all part of one property. Everything
+  here is the system directed at itself. A bare model has no machinery to
+  maintain; every criterion here exists because the architecture does.
+
+criteria:
+  - id: D1
+    name: Self-monitoring
+    grammar: default
+    question: >
+      Does the system know when its own machinery fails? Are silent failures
+      (a routine that stopped firing, a pipeline producing empty output)
+      detected by the system rather than discovered by the operator?
+    explainer: >
+      Whether the system knows when it is broken. Passing means the system
+      checks its own pulse on a schedule: routine failure rates, dead jobs,
+      silent-failure canaries, with findings surfaced where the operator will
+      actually see them. The alternative is discovering that a pipeline died
+      three weeks ago only when its absence finally hurts. Monitoring that
+      itself dies silently fails the criterion; that is what canaries are for.
+    proof_4: >
+      Monitoring configuration plus at least one real incident where the
+      system detected its own failure before the operator did.
+    weight: 5
+    weight_argument: >
+      An unmonitored factory degrades invisibly and spends the operator's
+      trust without their knowledge. Installed is not the same as working;
+      only the system itself can watch at the required frequency.
+    cost: medium
+    origin: function
+
+  - id: D2
+    name: Self-repair within safe bounds
+    grammar: default
+    question: >
+      When the system detects a fault, can it fix the safe and reversible
+      subset itself, and does it correctly route the dangerous subset to the
+      operator instead of attempting it?
+    explainer: >
+      One step past monitoring: when the check finds a safe, reversible problem
+      (a stuck queue, a stale cache, a missed run), does the system fix it and
+      leave an artifact trail, or file a ticket for the operator? The boundary
+      matters: self-repair should cover the routine and reversible, and escalate
+      the risky. A system that repairs nothing burdens the operator; one that
+      repairs beyond its authority is a hazard.
+    proof_4: >
+      A remediation log showing automatic fixes applied, each within a
+      declared safe-action boundary, and dangerous cases escalated.
+    weight: 4
+    weight_argument: >
+      Detection without repair still consumes the operator's time for every
+      fault. The delta is bounded autonomy over the system's own health; one
+      below monitoring because repair without detection is impossible.
+    cost: medium
+    origin: function
+
+  - id: D3
+    name: Backup and tested restore
+    grammar: default
+    question: >
+      Is the system's state (memory, configuration, code) versioned and backed
+      up automatically, and has restore actually been tested rather than
+      assumed?
+    explainer: >
+      The criterion is deliberately named "backup and tested restore" because
+      the second half is where systems fail. Copies that have never been
+      restored are hope, not backup. Passing means backups exist, run
+      automatically, and a restore has actually been rehearsed end to end (fresh
+      folder, recover everything, verify it works), with the rehearsal repeated
+      on a schedule. The gap between "we have backups" and "we have restored
+      from backups" is where data loss lives.
+    proof_4: >
+      Backup configuration plus a documented restore drill with its outcome.
+    weight: 5
+    weight_argument: >
+      The system's accumulated memory is the one component that cannot be
+      re-derived at any price; years of context can vanish in one disk
+      failure. The drill is weighted with the backup because the recovery
+      path is the half that fails in practice.
+    cost: low
+    origin: function
+
+  - id: D4
+    name: Memory accuracy audit
+    grammar: measured
+    question: >
+      Is the stored memory sampled against reality on a schedule, with an
+      error rate stated and tracked? Not "is the store organized" but "is it
+      actually correct".
+    explainer: >
+      Memory is only an asset if it is true. This criterion asks whether stored
+      claims are systematically audited against reality: a sampled fact-check on
+      a schedule (pull twenty stored facts, verify each, score the store), with
+      wrong facts corrected through the M9 machinery. Without it, confidence in
+      memory rests on the assumption that nothing captured was wrong and nothing
+      true went stale, and both assumptions are false at any real corpus size.
+    proof_4: >
+      Audit method, sample results, and an error-rate number tracked across
+      audits.
+    weight: 4
+    weight_argument: >
+      A confidently wrong memory is the known failure mode of every system in
+      this category. The audit is what keeps the Memory tier honest: with no
+      sampled error rate, every score in that tier measures the shape of the
+      store rather than its truth.
+    cost: medium
+    origin: function
+
+  - id: D5
+    name: Output verification
+    grammar: default
+    question: >
+      Does the system verify its own work products against defined acceptance
+      criteria before delivery (facts checked, links opened, renders viewed),
+      or does the operator carry the full checking burden?
+    explainer: >
+      Whether work products pass through gates before they reach the operator or
+      the world. Examples: a design QA script on every rendered deliverable, a
+      test suite on every code change, a voice check on every draft leaving in
+      the operator's name. The criterion distinguishes systems that verify
+      outputs from systems that emit them; at volume, unverified output quietly
+      transfers the review burden back to the operator.
+    proof_4: >
+      Gate definitions per output type plus logs showing outputs blocked or
+      corrected by the gates.
+    weight: 4
+    weight_argument: >
+      If the operator must re-check everything, the system saves production
+      time and spends it back in review. Self-verification is what converts
+      output volume into trusted output.
+    cost: medium
+    origin: function
+
+  - id: D6
+    name: Enforced versus advisory rules
+    grammar: default
+    question: >
+      Of the rules the system claims to follow, how many are blocked in code
+      (hooks, gates, permissions) versus requested in prose the model may
+      ignore? Is the enforced set identified and deliberate?
+    explainer: >
+      The load-bearing distinction of the whole tier: is a rule enforced in
+      code, or written in prose and left to the model's judgment? "Never commit
+      secrets" in an instruction file is advisory; a pre-commit hook that blocks
+      the commit is enforced. Advisory rules fail exactly when it matters: long
+      sessions, degraded attention, adversarial input. Count the rules that
+      would survive the model having a bad day; those are the enforced ones.
+    proof_4: >
+      An inventory mapping each claimed rule to its enforcement mechanism,
+      plus a negative test showing an enforced rule actually blocking.
+    weight: 4
+    weight_argument: >
+      Instructions in context are suggestions, not configuration; every
+      system in this category markets rules, and they diverge exactly here.
+      The architecture's delta is turning stated policy into physics.
+    cost: low
+    origin: "adversarial:hooks-not-prompts"
+
+  - id: D8
+    name: Vendor-change resilience
+    grammar: default
+    subgroup: owns
+    question: >
+      Does the system survive changes it does not control: a model swap, a
+      harness update, a provider policy change? Is portability to another
+      runtime demonstrated rather than presumed from open formats?
+    explainer: >
+      Every personal AGI runs on someone else's model and runtime, and upstream
+      changes without asking. This criterion asks what happens then: is there a
+      fallback runtime, are the data and skill layers portable enough to
+      migrate, has any of this been tried? A system whose memory is plain files
+      (M10) has the raw material for resilience, but untested portability is a
+      plan, not a capability. Deep single-vendor integration may be the right
+      trade; this criterion prices it.
+    proof_4: >
+      A documented swap or upgrade drill: the change, what broke, time to
+      recover, and the system running on the alternative.
+    weight: 4
+    weight_argument: >
+      The system's foundation is rented from a vendor who may change it any
+      day, and a single upstream change can idle the whole factory. Resilience
+      here is the difference between an outage and an ending. Origin includes
+      a real near-loss from an upstream harness change.
+    cost: high
+    origin: practice+research
+
+  - id: D10
+    name: Behavior control
+    grammar: default
+    question: >
+      Can the operator control the model's character, not just its knowledge:
+      damp trained tendencies like flattery and agreement-seeking, and verify
+      with tests that the control actually holds?
+    explainer: >
+      A model arrives with a trained character: it agrees readily, flatters,
+      and softens bad news. Those tendencies are invisible in a demo and
+      expensive over months, because a system that tells the operator what they
+      want to hear corrupts every judgment built on its output. This criterion
+      asks whether the operator can damp them, and what proves the damping
+      holds. Passing means behavioral tests: scripted scenarios that invite the
+      tendency (a weak plan presented confidently, a wrong claim asserted as
+      fact) scored on whether the system pushed back, re-run after every model
+      or harness update. Prose rules plus good intentions score low because
+      nothing detects drift between the rulebook and actual behavior.
+    proof_4: >
+      The control mechanism plus behavioral test results demonstrating the
+      damped tendency, re-run after model or harness updates.
+    weight: 3
+    weight_argument: >
+      Vendors tune character globally; the operator inherits it. The
+      architecture can only partially counteract training, so the delta is
+      real but bounded, and it must be verified to exist at all.
+    cost: medium
+    origin: practice+research
+
+  - id: D11
+    name: Assembly transparency
+    grammar: default
+    question: >
+      Can the operator lift the hood on any answer: see what was loaded, what
+      fired, what was retrieved, what was on and off when the answer was
+      produced?
+    explainer: >
+      When the system answers, what went into the answer? Assembly transparency
+      means the operator can lift the hood on a given response: which memory
+      files loaded, which skills fired, which rules were in force. This is the
+      anti-black-box criterion: without it, debugging a bad answer means
+      guessing, and trusting a good one means faith. Silent retrieval pipelines
+      that inject unlogged context are the failure mode.
+    proof_4: >
+      A per-answer trace (context manifest, retrieval log, active-component
+      list) a stranger could follow.
+    weight: 4
+    weight_argument: >
+      Without visibility into what assembled an answer, the operator cannot
+      debug wrong answers, audit privacy, or calibrate trust; every other
+      trust criterion becomes unverifiable folklore. A bare chat has almost
+      nothing to hide; the architecture does.
+    cost: medium
+    origin: practice+research
+
+  - id: D12
+    name: Cost observability and control
+    grammar: default
+    question: >
+      Is spend visible and steerable: cost per routine and per delivered
+      artifact known, idle cost known, expensive jobs flagged before they run,
+      budgets enforced rather than discovered on the bill?
+    explainer: >
+      Whether the operator knows what the system costs, before the invoice.
+      Passing means spend is visible at useful granularity (per day, per
+      routine, per heavy job), with thresholds that alert on anomalies rather
+      than relying on the operator to notice. An autonomous system without cost
+      observability has an unbounded budget by default; this criterion prices
+      metered-API architectures honestly against flat-fee ones.
+    proof_4: >
+      Cost telemetry per routine and artifact, plus a budget mechanism shown
+      intercepting an over-budget run.
+    weight: 3
+    weight_argument: >
+      An unaffordable factory shuts down regardless of quality, but cost
+      control is survival infrastructure rather than capability. Mid-weight:
+      its absence kills slowly, its presence adds nothing to output.
+    cost: low
+    origin: "adversarial:predictable-cost"
+
+  - id: D13
+    name: Tests on the system itself
+    grammar: default
+    question: >
+      Is the machinery regression-tested: do the hooks, routines, retrieval
+      and gates have a test suite that runs on change and on schedule, or is
+      only the output ever judged?
+    explainer: >
+      The system itself is software: skills, hooks, schedulers, config. This
+      criterion asks whether that layer is tested like software: a test suite
+      that gates changes to skills and hooks, scheduled checks that config
+      matches reality (every scheduled job exists, every referenced file is
+      present). Without it, the system's own plumbing is the least-tested code
+      the operator depends on daily.
+    proof_4: >
+      A test suite covering the system's own mechanisms, in continuous
+      integration or a scheduled run, with its pass history.
+    weight: 4
+    weight_argument: >
+      A system that changes weekly without tests is betting the factory on
+      every edit. Tests are what let the system evolve without silently
+      breaking; they are the enforcement layer of trustworthiness itself.
+    cost: medium
+    origin: "adversarial:tested-harness"

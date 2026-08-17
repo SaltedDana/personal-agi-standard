@@ -1,0 +1,46 @@
+# Cross-tier sub-groups.
+#
+# A sub-group marks criteria that answer one question together while sitting in
+# different tiers. Membership is declared per criterion with the `subgroup`
+# field; this file holds the definition and the reason each sub-group is
+# reported as its own subtotal. Members are derived from the criteria data, so
+# there is one source of truth and nothing to keep in sync.
+#
+# A sub-group changes no weight, no level and no ID. Its subtotal is reported in
+# addition to the tier totals, never instead of them.
+
+subgroups:
+  unprompted:
+    name: Unprompted
+    question: Is the system proactive?
+    description: >
+      Work the system initiates itself: the operator's own commitments surfaced
+      before anyone asks (O10), drift and opportunity raised without a prompt
+      (O11), goals held across sessions rather than restated (O12), and the
+      acceptance rate that decides whether initiative is worth having (O13).
+    reported_because: >
+      A system can score well across Operations while never moving first, and the
+      difference matters more than the tier total shows. The subtotal separates
+      the two, and O13 keeps it honest by measuring how much of the unprompted
+      output the operator actually wanted. This sub-group also carries the
+      weakest evidence in the standard: its artifacts record what the system
+      surfaced and cannot record what it missed, so its levels are not
+      independently reproducible by a third party.
+  owns:
+    name: Owns
+    question: "What survives if every vendor withdraws?"
+    description: >
+      Ownership is the word "personal" cashed out mechanically: memory in open
+      formats the operator can take elsewhere (M10), and a demonstrated survival
+      of an upstream change the operator did not choose (D8).
+    reported_because: >
+      These two criteria sit in different tiers because each earns its weight for
+      a different reason: M10 shapes how memory is stored, D8 tests what happens
+      when someone else's decision changes the ground under the system. Read
+      together they answer whether the system is actually the operator's or only
+      on loan from a vendor, on the only axis where a small system beats a
+      centralized one. This is a subtotal and not a fifth tier because
+      independence does not change what the system can do today, which is the
+      same argument that sets M10's weight at 3. A plain-text folder that does
+      nothing scores well here and near zero everywhere else, and that is the
+      correct result.

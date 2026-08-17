@@ -1,0 +1,389 @@
+# Tier 2: Operations.
+# What the system does with the memory: skills, agents, routines, loops.
+# Goal-driven work grounded in what the system remembers, including a marked
+# sub-group of unprompted capabilities (the system moves first). Sub-group
+# scores are reported separately as well as inside the tier total.
+# IDs are stable.
+
+tier: operations
+description: >
+  What the system does with its memory of the operator: goal-driven work
+  executed with skills, agents, routines and loops, grounded in accumulated
+  context rather than a fresh briefing each time. This tier scores the acting;
+  the machinery's own reliability while it acts belongs to Dependability. The
+  "unprompted" sub-group covers work the system starts by itself; its score is
+  also reported separately.
+
+criteria:
+  - id: O1
+    name: Context-grounded execution
+    grammar: default
+    question: >
+      Does the system execute tasks using the operator's accumulated context
+      (goals, preferences, history, current projects) without being re-briefed,
+      and is the grounding visible in the output rather than claimed?
+    explainer: >
+      The point of accumulated context is that work products arrive already
+      grounded in it. Ask the system to draft a proposal and it should come back
+      in the operator's voice, aware of the pricing history with that client,
+      respecting constraints established months ago, without a re-briefing
+      paragraph. The grounding must be visible in the output, not claimed in
+      marketing. A bare model produces a competent generic draft; the
+      architecture's contribution is everything that makes it this operator's
+      draft.
+    proof_4: >
+      Side-by-side artifacts: the same task done cold versus through the
+      system, with the context-dependent differences identified.
+    weight: 5
+    weight_argument: >
+      This is the hinge between the Memory tier and everything else: memory
+      that never reaches the work is storage, not an operating system. A bare
+      model needs the full briefing every single time.
+    cost: medium
+    origin: function
+
+  - id: O2
+    name: Skill packaging and reuse
+    grammar: default
+    question: >
+      Is know-how packaged as named, reusable procedures (skills, templates,
+      playbooks) that are discoverable when relevant, rather than re-derived
+      or re-prompted from scratch each time?
+    explainer: >
+      Whether know-how accumulates as named, reusable procedures (skills,
+      templates, playbooks) that surface when relevant, or gets re-derived from
+      scratch each time. The test: when a task type repeats, does the system
+      reach for a packaged procedure that encodes the lessons of previous
+      rounds, or does quality depend on how well the operator prompts today?
+      Discoverability is part of the criterion: a skill library nobody triggers
+      is shelf-ware.
+    proof_4: >
+      A skill inventory plus invocation logs showing repeated reuse, and a
+      discovery mechanism that loads the right skill without loading all.
+    weight: 3
+    weight_argument: >
+      A bare model can perform most of these procedures when prompted well;
+      the architecture's delta is consistency and zero re-derivation cost, not
+      the ability itself.
+    cost: low
+    origin: function
+
+  - id: O3
+    name: Range extension
+    grammar: default
+    question: >
+      Does the system reliably extend the operator into fields they never
+      practiced (design, code, data analysis), with persistent quality gates
+      per field, so results are dependable rather than occasional?
+    explainer: >
+      Whether the system reliably extends the operator into fields they never
+      practiced: a non-designer shipping decks, a non-programmer shipping
+      working software. The key word is reliably. One good result is the model;
+      dependable results require persistent quality gates per field (a design QA
+      pass, a test suite) so the operator can trust output in a domain where
+      they cannot judge the details themselves.
+    proof_4: >
+      Delivered artifacts in fields the operator does not practice, each
+      passed through a defined per-field quality gate.
+    weight: 2
+    weight_argument: >
+      Most of this power is the bare model's: a chat window already writes
+      code and analyzes data. The architecture adds persistence and quality
+      gates, a real but thin layer, so this weighs low despite being one of
+      the most personally valued capabilities. Weight follows the
+      contribution-above-bare-model law, not felt value.
+    cost: low
+    origin: practice+research
+
+  - id: O4
+    name: Reflective partnership
+    grammar: default
+    question: >
+      Does deep accumulated context enable dialogue the operator could not
+      have with a stranger: reflection, self-insight, learning, in-context
+      teaching that adapts to what the operator already knows?
+    explainer: >
+      The conversational payoff of deep context: dialogue the operator could not
+      have with a stranger. Reflection that draws on months of logged decisions,
+      teaching that adapts to what the operator already knows instead of
+      starting from zero, pattern-surfacing ("you have made this trade-off three
+      times and regretted it twice"). A bare model can be a brilliant
+      conversationalist; it cannot be a partner with a shared history.
+    proof_4: >
+      Session artifacts where the system's contribution demonstrably depends
+      on longitudinal knowledge of the operator (references to past decisions,
+      patterns across months), not on the current conversation alone.
+    weight: 2
+    weight_argument: >
+      A bare model is already a strong reflective interlocutor within one
+      conversation. The architecture's delta is longitudinal grounding, which
+      deepens the dialogue but does not create the capability.
+    cost: low
+    origin: practice+research
+
+  - id: O5
+    name: Scheduled routines
+    grammar: default
+    question: >
+      Do recurring jobs run unattended on a schedule and produce output that
+      is actually used, rather than output that accumulates unread?
+    explainer: >
+      Do recurring jobs run unattended on a schedule, and produce output someone
+      actually uses? Passing means real scheduler entries (cron, launchd) with a
+      run history, failure visibility, and recovery for missed windows: the
+      morning brief that appears every day including the days the operator
+      forgot it exists. Failing means "routines" that are actually the operator
+      remembering to ask.
+    proof_4: >
+      Scheduler configuration plus run logs plus evidence of consumption
+      (outputs referenced, acted on, or feeding other work).
+    weight: 5
+    weight_argument: >
+      A bare model does nothing between prompts. Work that happens without the
+      operator present is the clearest possible architecture delta, and it is
+      the mechanism behind most of this tier.
+    cost: medium
+    origin: function
+
+  - id: O6
+    name: Parallel presence
+    grammar: default
+    question: >
+      Can multiple workstreams advance concurrently without the operator
+      attending to each: parallel agents, background jobs, queued pipelines
+      that do not serialize behind one conversation?
+    explainer: >
+      Whether the system can be in more than one place at once: background jobs
+      running while the operator works on something else, parallel agents on
+      independent subtasks, a channel from the operator's phone while away from
+      the machine. This is the difference between a tool the operator operates
+      and a staff that operates alongside them.
+    proof_4: >
+      Logs of overlapping unattended runs on distinct workstreams, with their
+      outputs.
+    weight: 4
+    weight_argument: >
+      Being in several places at once is impossible for the operator and for a
+      single chat session; the architecture manufactures it. One step below
+      routines because it builds on them.
+    cost: medium
+    origin: function
+
+  - id: O7
+    name: Action in absence
+    grammar: default
+    question: >
+      If the operator disappears for days, does the system keep operating:
+      routines run, incoming work is triaged, decisions above its authority
+      queue cleanly for return, nothing silently rots?
+    explainer: >
+      The strongest form of operating: artifacts exist because the system acted
+      while the operator was absent. The brief was written before they woke;
+      the inbox was processed overnight; the health check ran and fixed
+      something on a day nobody opened a session. Scored on evidence
+      (artifacts with timestamps, heartbeat logs), not on the theoretical
+      capability.
+    proof_4: >
+      A documented absence fire drill: the period, what ran, what queued, what
+      broke, and the state the operator returned to.
+    weight: 5
+    weight_argument: >
+      The strongest single test of the whole architecture: it requires deep
+      memory, judgment about authority boundaries, and self-maintenance at
+      once. A bare model cannot survive one hour of absence. Daily operation
+      makes this the capability whose absence is felt first.
+    cost: high
+    origin: practice+research
+
+  - id: O8
+    name: External actuation
+    grammar: default
+    question: >
+      Can the system act on the world beyond its own files (send, publish,
+      deploy, book, buy) through permission gates that distinguish reversible
+      from irreversible actions?
+    explainer: >
+      Whether the system can act on the outside world: send, publish, deploy,
+      book, buy. A system that only reads and drafts leaves the last mile to
+      the operator every time. This criterion deliberately sits in tension with
+      governance (O9, D6): a system may score modestly here by design because
+      its operator wants every outbound action gated. That is what a declared
+      target with a design-conflict reason is for.
+    proof_4: >
+      The gate definitions as code or configuration, plus logs of gated
+      actions including at least one correctly blocked attempt.
+    weight: 3
+    weight_argument: >
+      Modern harnesses already provide tool use; the architecture's delta is
+      the gate discipline, not the reach. Ungated reach is a liability, so
+      the criterion measures the gates.
+    cost: medium
+    origin: function
+
+  - id: O9
+    name: Escalation judgment
+    grammar: default
+    question: >
+      Does the system know when to stop and ask: does it distinguish what it
+      may decide from what belongs to the operator, and does it hold that line
+      under pressure to be helpful?
+    explainer: >
+      Whether the system knows what it may do alone and what needs the operator,
+      and whether that boundary is real. Passing means codified authority lanes
+      (act freely; act and flag; hard stop and ask) with the hard-stop lane
+      enforced in code rather than left to the model's judgment in the moment.
+      The failure modes on both sides are costly: a system that asks about
+      everything is a tool, and a system that asks about nothing is a liability.
+    proof_4: >
+      An escalation log showing correct stops at the authority boundary, and
+      no boundary crossings, over a sustained period.
+    weight: 4
+    weight_argument: >
+      Autonomy without a stopping rule is a hazard, not a capability. The
+      bare model has no standing authority model of one specific operator to
+      stop against; the architecture supplies it.
+    cost: medium
+    origin: function
+
+  - id: O10
+    name: Commitment tracking
+    grammar: default
+    subgroup: unprompted
+    question: >
+      Does the system surface the operator's own promises and commitments
+      unprompted: overdue items raised at the right moment, not stored in a
+      list nobody reopens?
+    explainer: >
+      Promises are the highest-stakes facts an operator generates. This
+      criterion asks whether commitments (to clients, colleagues, themselves)
+      are tracked with owner and deadline, and whether the system follows
+      through unprompted: surfacing the overdue, flagging the at-risk before the
+      deadline rather than after. Capturing commitments into a list nobody
+      re-reads scores low; a scheduled check that raises flags scores high.
+    proof_4: >
+      Instances of unprompted surfacing traced from the original commitment to
+      the surfaced reminder to the outcome.
+    weight: 5
+    weight_argument: >
+      Remembering what the operator promised and raising it unasked is pure
+      architecture: a bare model does not know a promise was made, and a list
+      the operator must reopen is the operator working, not the system.
+    cost: medium
+    origin: practice+research
+
+  - id: O11
+    name: Drift and opportunity surfacing
+    grammar: default
+    subgroup: unprompted
+    question: >
+      Does the system notice, unprompted, when reality diverges from the
+      operator's stated goals (output drifting off positioning, a client's
+      world changing, an opening worth acting on) and raise it?
+    explainer: >
+      Whether the system notices things the operator did not ask about:
+      relevant developments in their field, drift in the system's own output,
+      an opportunity matching their goals. Passing requires unprompted delivery
+      with artifacts (a daily or weekly scan that lands on its own schedule),
+      not the ability to research when asked. This is the watchtower function:
+      its value is precisely that nobody had to remember to ask.
+    proof_4: >
+      Logged unprompted interventions of this kind with what triggered each
+      and what happened next.
+    weight: 4
+    weight_argument: >
+      Requires holding the operator's goals as standing state and comparing
+      the world against them continuously. Entirely architecture; weighted one
+      below commitment tracking because judging drift is fuzzier than a dated
+      promise and misfires cost attention.
+    cost: high
+    origin: practice+research
+
+  - id: O12
+    name: Goal grip
+    grammar: default
+    subgroup: unprompted
+    question: >
+      Does the system argue back with standing: cite the operator's own
+      recorded goals and decisions against a current instruction that
+      contradicts them? Is the grip strength operator-configurable, and is
+      there an intervention log with outcomes?
+    explainer: >
+      Whether the system holds the operator's goals firmly or just displays
+      them. A dashboard that shows the goal of the quarter while every session
+      drifts to whatever came up scores low. Grip means the stated goal actually
+      structures behavior: sessions open oriented to it, unrelated requests get
+      gently flagged as off-goal, and the firmness is calibrated per goal (some
+      goals warrant a hard pull back, others a light note). This criterion was
+      born from observing that nobody has built calibrated grip, which is itself
+      informative.
+    proof_4: >
+      The grip configuration, plus an intervention log showing pushbacks, the
+      operator's rulings, and the hit rate.
+    weight: 5
+    weight_argument: >
+      A bare model bends toward whatever the current prompt wants; holding
+      yesterday's stated goal against today's impulse requires durable goals
+      and licensed disagreement, both pure architecture. Precision without
+      pushback is the failure daily operation exposes: a system that executes
+      the request and loses the goal.
+    cost: medium
+    origin: practice+research
+
+  - id: O13
+    name: Initiative precision
+    grammar: measured
+    subgroup: unprompted
+    question: >
+      Of everything the system raises unprompted, how much deserved the
+      operator's attention? Is the signal-to-noise of initiative measured,
+      so unprompted work earns trust instead of becoming spam?
+    explainer: >
+      The quality control on initiative. A system that acts unprompted (O10,
+      O11, O12) can be a partner or a nuisance, and the difference is
+      measurable: of the unprompted actions and suggestions, what fraction does
+      the operator accept? Passing means the acceptance rate is actually tracked
+      and the system adapts (fewer, better interventions over time). An
+      unmeasured initiative stream that feels noisy scores low no matter how
+      sophisticated the triggers are.
+    proof_4: >
+      A measured acceptance rate for unprompted interventions, tracked over
+      time.
+    weight: 4
+    weight_argument: >
+      Unprompted capabilities are only as valuable as their precision; a noisy
+      system trains the operator to ignore it, silently zeroing O10 through
+      O12. This criterion makes the sub-group falsifiable.
+    cost: medium
+    origin: function
+
+  - id: O14
+    name: Autonomy horizon
+    grammar: measured
+    question: >
+      When the operator is away, how long does the system keep producing usable
+      output before a human is needed? Is that horizon measured and tracked,
+      rather than assumed?
+    explainer: >
+      O5, O6 and O7 ask whether work happens without the operator. None of them
+      asks for how long. A system that runs unattended for twenty minutes and a
+      system that runs unattended for three weeks both satisfy "acts in
+      absence", and the distance between them is most of the distance in this
+      category. This criterion asks for the number: the longest unattended
+      period whose output was still usable without intervention, established by
+      observation rather than by intention. Passing means the horizon is a
+      tracked number with a threshold, and a regression in it gets noticed.
+    proof_4: >
+      A stated horizon with its method (the longest unattended period whose
+      output was accepted without intervention), at least two dated
+      measurements, and a threshold that triggers investigation when the
+      horizon shortens.
+    weight: 4
+    weight_argument: >
+      The axis this field is currently racing on, and the one where claims
+      inflate fastest, because "runs autonomously" is said identically by a
+      system that survives an hour and one that survives a month. A bare
+      model's horizon is a single turn, so everything above that is the
+      architecture's contribution. Held below O7's weight because a measured
+      horizon presumes the absence capability O7 already scores.
+    cost: high
+    origin: adversarial:measured-autonomy

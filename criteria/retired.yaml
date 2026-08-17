@@ -1,0 +1,24 @@
+# Retired criterion IDs.
+#
+# A criterion can be removed from the standard. Its ID is never reused, so a
+# number always points to the same question in every version, which is why the
+# tier tables have gaps. Each entry records what the ID meant, when it was
+# removed, and why.
+
+retired:
+  - id: M11
+    name: Confidentiality separation
+    removed_in: "pre-release"
+    reason: >
+      Out of scope. Protecting sensitive material is a different concern from
+      the independence from a vendor that the Owns sub-group measures.
+  - id: D7
+    name: Security and privacy posture
+    removed_in: "pre-release"
+    reason: >
+      Out of scope, on the same argument as M11.
+  - id: D9
+    name: Clean-room mode
+    removed_in: "pre-release"
+    reason: >
+      Out of scope, on the same argument as M11.

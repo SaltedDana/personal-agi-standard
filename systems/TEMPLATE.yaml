@@ -1,0 +1,39 @@
+# Assessment template. Copy to systems/<your-system>.yaml.
+# One entry per criterion, all 41, in ID order. `unknown` is a valid level.
+
+system: your-system-name
+operator: who runs it (name or handle; optional)
+assessed_by: machine (model name) | human | mixed
+date: YYYY-MM-DD
+standard_version: 0.1.0
+notes: >
+  One paragraph: what the system is, how long it has been operating,
+  what it runs on.
+
+# Optional declared target profile reasons (fixed vocabulary):
+#   out-of-scope        out of scope for my stage
+#   cost-benefit        cost exceeds benefit at my volume
+#   design-conflict     conflicting design goal
+
+scores:
+  - id: M1
+    level: 0        # 0..4 or unknown
+    evidence_tag: unknown   # verified | documented | inferred | unknown
+    evidence: []    # paths, links, one-line descriptions; required for level >= 3
+    target: null    # optional: 0..4
+    target_reason: null   # required if target set and below 4
+
+  # ... repeat for M2..M10, O1..O14, D1..D6, D8, D10..D13, C1..C6
+
+# Subtotals. Computed from the scores above; recorded here so a reader does not
+# have to recompute them. Reported in addition to the tier totals.
+subtotals:
+  tiers:
+    memory: null
+    operations: null
+    dependability: null
+    compounding: null
+  subgroups:
+    unprompted: null   # O10, O11, O12, O13; max 72
+    owns: null         # M10, D8; max 28
+  total: null          # max 644

@@ -1,0 +1,170 @@
+# Tier 4: Compounding.
+# The system itself provably improves from accumulating memory and activity:
+# day 300 is better than day 30, and the system can prove it. This tier does
+# NOT measure operator growth (a service, covered under Operations) or the
+# value of accumulated outputs; it measures the system's own capability curve.
+# IDs are stable.
+
+tier: compounding
+description: >
+  Whether the system gets better from what it accumulates, and can prove it:
+  day 300 better than day 30, on auditable evidence. The tier is named for the
+  mechanic it demands: gains building on prior gains rather than accruing in a
+  straight line. It is the category most systems claim and almost none can
+  demonstrate; the evidence grammar exists because the claim is cheap and the
+  proof is not.
+
+criteria:
+  - id: C1
+    name: Corrections become behavior
+    grammar: evidence
+    question: >
+      When the operator corrects the system, does the correction become a
+      durable behavior change: encoded, applied in future sessions, and
+      demonstrably not repeated?
+    explainer: >
+      The base loop of compounding: when the operator corrects the system, the
+      correction must become durable behavior, encoded where future sessions
+      will hit it, and demonstrably not repeated. The test is longitudinal: take
+      a correction from months ago and check whether the old mistake still
+      occurs. A system that receives the same correction three times is not
+      learning; it is being operated.
+    proof_4: >
+      A corrections ledger tracing individual corrections to their encoded
+      form and to later sessions where the old behavior would have occurred
+      and did not, with recurrence measured over time.
+    weight: 5
+    weight_argument: >
+      A bare model resets to factory behavior every session; the operator
+      pays for each mistake exactly once only if the architecture makes it
+      so. This is the atomic unit of compounding: without it, every other
+      improvement mechanism leaks.
+    cost: medium
+    origin: function
+
+  - id: C2
+    name: Learned-pattern promotion
+    grammar: evidence
+    question: >
+      Does the system extract patterns from its own activity and promote them
+      into durable capability (skills, instincts, defaults) with confidence
+      tracking, so repeated work becomes encoded work?
+    explainer: >
+      Whether the system notices its own repetition and promotes it into
+      capability. When the same multi-step workflow gets performed by hand for
+      the third time, a compounding system extracts it into a named skill, with
+      confidence tracking so promotion is earned rather than premature.
+      Hand-authoring skills is the manual version and scores in the middle; the
+      criterion points at the pipeline where repeated work becomes encoded work
+      with decreasing operator involvement.
+    proof_4: >
+      A promotion trail: recurring activity, the pattern extracted from it,
+      its confidence record, and the promoted skill in later use.
+    weight: 4
+    weight_argument: >
+      Corrections capture what went wrong; pattern promotion captures what
+      went right. It converts operating history into capability without the
+      operator authoring anything, which no bare model can accumulate.
+    cost: medium
+    origin: "adversarial:confidence-scored-instincts"
+
+  - id: C3
+    name: Memory accretion pays off
+    grammar: measured
+    question: >
+      Do answers get better as memory grows, demonstrably? The antithesis of
+      context rot: is there evidence that more accumulated memory improved
+      output quality rather than degrading it?
+    explainer: >
+      The counterweight to context rot. The industry's default experience is
+      that more accumulated context makes models worse: noisier retrieval,
+      staler facts, longer prompts. A compounding system claims the opposite,
+      and this criterion demands evidence: any measurement showing answers
+      improved as the store grew (the same question answered better with memory
+      than without, quality tracked as the corpus doubled). Growth in file count
+      is not the claim; growth in usefulness is.
+    proof_4: >
+      The same task class evaluated at two corpus sizes or dates, showing
+      quality rising with accumulation, method stated.
+    weight: 4
+    weight_argument: >
+      Accumulation is the system's core bet and it is not free: unmanaged
+      growth degrades models. Proving the bet pays is what separates a
+      compounding system from a hoarding one.
+    cost: high
+    origin: function
+
+  - id: C4
+    name: Longitudinal capability benchmark
+    grammar: measured
+    question: >
+      Is there a fixed benchmark run over the system's lifetime: the same task
+      set executed at intervals, showing day 300 beating day 30 on defined
+      measures?
+    explainer: >
+      The tier's headline claim, measured the only honest way: a fixed benchmark
+      run over the system's lifetime. Freeze a set of representative tasks,
+      execute it at intervals on defined measures (quality, speed, how much
+      operator intervention was needed), and see whether day 300 beats day 30.
+      Without this, "the system gets better over time" is a feeling, and
+      feelings about one's own system are systematically optimistic.
+    proof_4: >
+      The benchmark definition, at least two dated runs, and the score trend.
+    weight: 5
+    weight_argument: >
+      Every other criterion in this tier shows a mechanism; this one shows the
+      curve, which is what makes the tier's claim falsifiable rather than
+      merely argued.
+    cost: high
+    origin: function
+
+  - id: C5
+    name: Self-directed improvement
+    grammar: evidence
+    question: >
+      Does the system propose and execute improvements to itself from its own
+      telemetry (failure patterns, cost data, usage analytics), through the
+      same safety gates as any other change?
+    explainer: >
+      Whether improvement itself is becoming autonomous. The system watches its
+      own telemetry (failure patterns, cost data, which skills go unused) and
+      proposes or executes improvements, through the same safety gates as any
+      other change. The gates are the point: self-modification without change
+      control is how systems rot; with it, maintenance becomes another scheduled
+      routine instead of the operator's weekend project.
+    proof_4: >
+      An improvement backlog generated by the system from its own telemetry,
+      with executed items and their measured effect.
+    weight: 4
+    weight_argument: >
+      The closure of the loop: the factory maintaining itself is Dependability;
+      the factory upgrading itself is Compounding. Requires telemetry, judgment
+      and gates working together, all architecture.
+    cost: high
+    origin: function
+
+  - id: C6
+    name: Error recurrence declines
+    grammar: measured
+    question: >
+      Is the rate of repeated mistakes tracked, and is it falling? Not "are
+      errors logged" but "does the same class of error happen less over time",
+      as a number.
+    explainer: >
+      The negative-space measurement of learning: is the rate of repeated
+      mistakes falling? Passing requires an error taxonomy (classes of mistake,
+      not individual incidents), recurrence counts per class, and a visible
+      trend. Logging errors is not the criterion; the criterion is the number
+      that shows the same class of error happening less this quarter than last.
+      A flat or rising recurrence curve falsifies the compounding claim no
+      matter how sophisticated the learning machinery looks.
+    proof_4: >
+      An error taxonomy with recurrence counts across periods, showing the
+      trend.
+    weight: 4
+    weight_argument: >
+      The negative image of the benchmark: improvement must show up as fewer
+      repeated failures, or the learning mechanisms are decorative. Recurrence
+      is the honest metric because it cannot be gamed by adding features.
+    cost: medium
+    origin: function

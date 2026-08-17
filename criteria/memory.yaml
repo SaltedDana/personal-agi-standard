@@ -1,0 +1,296 @@
+# Tier 1: Memory.
+# What the system collects and keeps about the operator: facts, interests,
+# projects, decisions, preferences. Derived from the function of memory itself
+# (capture, representation, retrieval, hygiene, ownership), never from any
+# existing product. IDs are stable.
+#
+# origin values:
+#   function              derived from what the capability must do
+#   adversarial:<view>    written from a rival architecture's worldview
+#   practice+research     the field (AGI and ML research, dependable
+#                         computing, operators building in public) plus a
+#                         running system: daily operation of a production
+#                         single-operator personal AGI
+
+tier: memory
+description: >
+  What the system collects and keeps about the operator and their world: facts,
+  interests, projects, decisions, preferences, commitments. The tier scores the
+  memory itself, from capture through representation, retrieval, hygiene and
+  ownership. A bare model remembers nothing between sessions; everything in
+  this tier is architecture.
+
+criteria:
+  - id: M1
+    name: Capture coverage
+    grammar: default
+    question: >
+      Is knowledge about the operator (decisions, preferences, projects,
+      commitments, relationships) captured across the surfaces where it
+      actually appears: conversations, documents, meetings, messages, browsing?
+    explainer: >
+      This is the raw-material question. Knowledge about an operator appears on
+      many surfaces during a normal week: chat sessions, documents, meeting
+      transcripts, messages, browsing. This criterion asks how many of those
+      surfaces actually feed the memory store. A system that only remembers what
+      the operator manually types into a notes app scores low even if the notes
+      are excellent, because most knowledge never reached it. A system whose
+      pipelines capture decisions from conversations, ingest meeting recordings,
+      and file dropped documents covers the surfaces where knowledge actually
+      lives.
+    proof_4: >
+      A coverage map listing capture surfaces, plus sampled evidence that facts
+      appearing on those surfaces reached the store within a defined window.
+    weight: 5
+    weight_argument: >
+      A bare model captures nothing; every remembered fact exists only because
+      the architecture caught it. This is the tier's foundation: everything
+      downstream retrieves what capture caught.
+    cost: medium
+    origin: function
+
+  - id: M2
+    name: Capture automaticity
+    grammar: default
+    question: >
+      Does memory form as a byproduct of normal work (session hooks, ingest
+      pipelines, scheduled extraction), or only when the operator remembers to
+      file things?
+    explainer: >
+      Whether remembering costs the operator discipline. Failing looks like a
+      great filing system that depends on the operator remembering to file: it
+      works for two weeks and collapses under a busy month. Passing looks like
+      memory forming as a side effect of work: a session ends and a hook
+      extracts the decisions made in it; a file lands in the inbox and a
+      scheduled job processes it. The test is simple: if the operator stops
+      doing anything deliberate about memory, does capture continue?
+    proof_4: >
+      Logs showing memory written by automatic triggers over a sustained
+      period, with no manual filing step in the path.
+    weight: 4
+    weight_argument: >
+      Manual capture collapses under real life; the architecture's contribution
+      is removing the operator's discipline from the loop. Weighted one below
+      coverage because a diligent operator can partially compensate by hand.
+    cost: medium
+    origin: function
+
+  - id: M3
+    name: Structured representation
+    grammar: default
+    question: >
+      Are facts stored as atomic units with explicit links or typed relations,
+      so questions that span several facts ("which clients touched X and what
+      did I promise them") are answerable, rather than as undifferentiated
+      prose blobs?
+    explainer: >
+      How facts are shaped once stored. A page of prose about a client contains
+      facts, but they are trapped in the paragraph. Structured representation
+      means each fact is an atomic unit connected to others by explicit links or
+      typed relations, so a question that spans several facts ("which clients
+      touched topic X, and what did I promise each of them") can be answered by
+      following connections instead of re-reading everything. A vault of
+      well-written essays fails this even when every fact is present, because
+      nothing can traverse it. Note the difference from M4: M3 is about how
+      facts connect to each other; M4 is about where each fact came from.
+    proof_4: >
+      A schema or convention document, plus a worked multi-hop query answered
+      by traversing stored relations.
+    weight: 3
+    weight_argument: >
+      A strong model can partially reconstruct structure from prose at query
+      time, at token cost. The architecture's delta is real but partial, so
+      this weighs mid-range rather than high.
+    cost: medium
+    origin: "adversarial:graph-memory"
+
+  - id: M4
+    name: Provenance per fact
+    grammar: default
+    question: >
+      Does every stored fact trace to its source and date, at the statement
+      level rather than the file level?
+    explainer: >
+      Every stored statement should be able to answer "says who, and since
+      when". Provenance at the file level ("this page summarizes that podcast")
+      is weaker than provenance at the statement level ("this specific claim
+      came from minute 34" or "from the March email"). The payoff is
+      auditability: when a stored fact turns out wrong, statement-level
+      provenance lets you trace it to its source, judge whether the source was
+      misread or the world changed, and fix every derived copy. Without it, a
+      wrong fact is just wrong, with no trail.
+    proof_4: >
+      A random sample of stored facts, each resolvable to a dated source a
+      stranger could check.
+    weight: 3
+    weight_argument: >
+      A bare model cannot cite where a belief came from; the store can. The
+      delta is real, but provenance is a means to trust rather than a
+      capability the operator feels daily, so it weighs mid-range.
+    cost: medium
+    origin: "adversarial:graph-memory"
+
+  - id: M5
+    name: Confidence and freshness per claim
+    grammar: default
+    question: >
+      Does a stored fact carry how sure and how fresh it is? Is there an
+      enforced rule that classifies every fact by how it ages (timeless; dated
+      with a validity window; defeasible, meaning valid until contradicted and
+      replaced only with operator approval; or a pointer to a live source),
+      with a per-class policy and a linter or audit that catches violations?
+    explainer: >
+      Facts age at different speeds, and a store that treats them uniformly will
+      confidently assert last year's world. Passing means every fact is
+      classified by how it ages, each class has a policy, and a linter enforces
+      it. Example classes: volatile facts like monthly business revenue expire
+      on a schedule; cyclical facts like client contact details require
+      re-verification every couple of years; defeasible facts like research
+      conclusions stay valid until contradicted by new evidence, and are
+      replaced only with operator approval; timeless facts like past decisions
+      never expire; pointer facts like a tool's current price are stored as a
+      reference to a live source rather than a copied value. The linter is what
+      makes this real: it flags the revenue figure that is two months old and
+      the contact unverified for three years.
+    proof_4: >
+      The rule as written, plus linter or audit output showing stale or
+      unmarked claims being caught.
+    weight: 4
+    weight_argument: >
+      Stale memory is worse than no memory: a bare model with no memory cannot
+      confidently assert last year's facts as current, but a naive store will.
+      The architecture must actively prevent a failure mode it created.
+    cost: medium
+    origin: "adversarial:open-knowledge-metabolism"
+
+  - id: M6
+    name: Retrieval precision, measured
+    grammar: measured
+    question: >
+      When the system reaches into memory for a task, do the right facts come
+      back? Not "does search exist" but "has retrieval quality been measured
+      and stated as a number" (recall@k, precision, answer accuracy on a test
+      set).
+    explainer: >
+      The gap this measures is between an installed feature and a known
+      capability. Passing looks like a fixed test set of questions with known
+      correct facts, run against the store, producing a number: recall@10 of 85
+      percent, or answer accuracy of 9 in 10. Failing looks like a semantic
+      index that demos well and has never been scored. Without the number,
+      every downstream claim about the system "knowing" things rests on
+      anecdote.
+    proof_4: >
+      A retrieval benchmark with a published method and number, tracked over
+      time.
+    weight: 4
+    weight_argument: >
+      Retrieval is where remembering becomes usable; unmeasured retrieval is a
+      feeling, not a capability. The bare model has nothing to retrieve from,
+      so the whole capability is architecture.
+    cost: high
+    origin: "adversarial:benchmarked-retrieval"
+
+  - id: M7
+    name: Retrieval quality at scale
+    grammar: measured
+    question: >
+      Does answer quality hold as the corpus grows by an order of magnitude,
+      and is the degradation curve known rather than assumed?
+    explainer: >
+      Retrieval that works on two thousand documents can quietly degrade at
+      twenty thousand: more near-duplicates, more stale hits, more
+      plausible-but-wrong neighbors. This criterion asks whether the
+      degradation curve is
+      known rather than assumed: the same benchmark run at two corpus sizes an
+      order of magnitude apart. It exists because memory systems are sold on
+      their behavior at small scale and lived with at large scale.
+    proof_4: >
+      Measurements of retrieval or answer quality at two corpus sizes an order
+      of magnitude apart, with the difference stated.
+    weight: 4
+    weight_argument: >
+      Every memory architecture works at fifty notes. The architectural claim
+      is that day 1,000 still works; a system that silently degrades with
+      growth defeats the point of accumulating at all.
+    cost: high
+    origin: "adversarial:graph-memory"
+
+  - id: M8
+    name: Retrieval degradation path
+    grammar: default
+    question: >
+      When an index, embedding backend, or search service is down, does
+      retrieval fall back to something cheaper (keyword, catalog), or does the
+      system's memory effectively vanish?
+    explainer: >
+      What remains of memory when the clever layer is down. If retrieval depends
+      on an embedding index or a search service, the day that component breaks
+      is the day the system's memory effectively vanishes, unless there is a
+      cheaper fallback: plain files searchable by keyword, a human-readable
+      catalog. Passing means the fallback exists and has actually been exercised
+      (kill the index for a day and verify the system still answers).
+      Architectures where the primary path is already plain files pass almost by
+      construction; architectures where a dead vector database means amnesia
+      fail.
+    proof_4: >
+      A documented fallback chain, plus evidence of an actual failover event
+      or drill in which answers kept flowing.
+    weight: 3
+    weight_argument: >
+      A resilience property of the memory rather than a new capability. The
+      delta above the bare model is keeping an existing capability alive under
+      failure, so it weighs mid-range.
+    cost: low
+    origin: "adversarial:graceful-degradation"
+
+  - id: M9
+    name: Correction and forgetting
+    grammar: default
+    question: >
+      Can the operator correct or delete a stored fact and trust that the
+      change propagates: duplicates consolidated, derived pages updated, the
+      dead belief marked dead rather than resurfacing later?
+    explainer: >
+      Memory must be correctable, and corrections must stick. When the operator
+      deletes or fixes a stored fact, the change has to propagate: duplicates
+      consolidated, derived pages updated, the dead belief marked dead. The
+      failure mode this guards against is the zombie fact: corrected in one
+      place, resurfacing months later from an uncorrected copy, now wearing the
+      authority of memory.
+    proof_4: >
+      A worked example: one correction traced through the store, showing every
+      place the old fact lived and that none of them still asserts it.
+    weight: 3
+    weight_argument: >
+      A bare model forgets everything, which trivially includes wrong facts.
+      The store creates the persistence-of-error problem and must solve it;
+      the delta is corrective rather than additive.
+    cost: medium
+    origin: function
+
+  - id: M10
+    name: Data ownership and portability
+    grammar: default
+    subgroup: owns
+    question: >
+      Is the memory stored in open formats the operator owns, readable without
+      the tool, exportable whole, and usable by a different runtime or model?
+    explainer: >
+      Whose data is it, mechanically. Passing means the memory is stored in open
+      formats the operator can read without the tool, export whole, and hand to
+      a different runtime or model: plain text files in a directory the operator
+      controls. Failing means the memory lives in a proprietary store with
+      partial or no export, so leaving the tool means leaving years of
+      accumulated context behind. This is the criterion that decides whether the
+      operator owns the system or the system owns the operator.
+    proof_4: >
+      A demonstrated export or a second runtime answering questions from the
+      same store.
+    weight: 3
+    weight_argument: >
+      Ownership does not change what the system can do today; it changes what
+      survives tomorrow. Weighted mid-range because its value is conditional
+      on an upstream change the operator did not choose, which D8 tests
+      directly.
+    cost: low
+    origin: "adversarial:plain-files"

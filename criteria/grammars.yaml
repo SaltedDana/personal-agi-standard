@@ -1,0 +1,30 @@
+# Level grammars. Every criterion declares exactly one grammar.
+# Levels are frozen before any system is scored. Scores are absolute and never adjusted.
+
+grammars:
+  default:
+    name: Automation ladder
+    levels:
+      0: "Absent. The capability does not exist in any form."
+      1: "Manual and ad hoc. The operator does it by hand when they remember to."
+      2: "Systematic but unverified. A defined mechanism exists and is used, but nothing checks that it works."
+      3: "Automated with evidence. Runs without the operator, and there is at least one auditable artifact showing it ran and worked."
+      4: "Automated, measured over time, survives failure. Runs without the operator, its success rate is tracked, and there is evidence it kept working (or failed loudly and recovered) through at least one real failure."
+
+  measured:
+    name: Measurement ladder
+    levels:
+      0: "Absent. The capability does not exist."
+      1: "Exists, quality unknown. The capability works anecdotally; no one has measured it."
+      2: "Spot-checked informally. Someone has probed quality by hand, without a method that another person could repeat."
+      3: "Measured once, number stated. A repeatable method produced at least one concrete number (recall@k, error rate, hit rate), and the number is written down."
+      4: "Measured continuously. The number is tracked over time, the trend is visible, and a threshold triggers action when it degrades."
+
+  evidence:
+    name: Improvement-evidence ladder (Compounding tier)
+    levels:
+      0: "No improvement claim is possible. Nothing accumulates."
+      1: "Anecdotal. The operator feels the system got better; no artifact supports it."
+      2: "Mechanism without proof. A mechanism intended to produce improvement exists (feedback capture, pattern extraction), but no artifact shows the system actually got better."
+      3: "One auditable artifact proves improvement. A stranger could inspect a concrete before/after artifact and agree the system improved."
+      4: "Sustained, methodical proof. Repeated measurements over time show improvement continuing, and the measurement method itself is published with the claim."
