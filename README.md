@@ -1,7 +1,16 @@
+![The Personal AGI Standard](assets/social-preview.png)
+
 # The Personal AGI Standard
 
 A maturity standard for personal AGI: architectures that remember, act,
 stay dependable, and compound for one person.
+
+[![version 0.1.0](assets/badges/version.svg)](CHANGELOG.md)
+[![41 criteria](assets/badges/criteria.svg)](STANDARD.md)
+[![4 tiers](assets/badges/tiers.svg)](STANDARD.md)
+[![max score 644](assets/badges/max-score.svg)](STANDARD.md)
+[![license CC BY 4.0](assets/badges/license-cc.svg)](LICENSE)
+[![scripts MIT](assets/badges/license-mit.svg)](scripts/LICENSE)
 
 ## Personal AGI
 
@@ -81,6 +90,8 @@ or point out where the map is wrong.
 4. **Compounding.** Whether the system provably improves from accumulated
    memory and activity: day 300 better than day 30, on auditable evidence.
 
+![The four tiers by weight](assets/tiers.png)
+
 Two sub-groups cut across the tiers. Each is reported as an extra subtotal, in
 addition to the tier totals and never instead of them, and changes no weight, no
 level and no ID.
@@ -95,6 +106,8 @@ level and no ID.
   ownership does not change what the system can do today. A plain-text folder
   that does nothing scores well here and near zero everywhere else, and that
   is the correct result.
+
+![The two cross-tier sub-groups](assets/subgroups.png)
 
 ## Design rules
 
@@ -115,6 +128,8 @@ level and no ID.
 - **IDs are stable.** A number always points to the same criterion. Criteria
   are edited, re-weighted, added or retired; a retired ID is never reused, which
   is why the tier tables have gaps. STANDARD.md lists the retired IDs.
+
+![All 41 criteria by tier and weight](assets/criteria-map.png)
 
 ## Known limits
 
@@ -139,6 +154,8 @@ grades inflate. Results land in `systems/<your-system>.yaml`. Then work the
 result: the low-scoring criteria carrying the highest weights are where the
 next month of work pays most. Re-run it after a few months of building, and
 the difference between the two results is what the progress bar reads.
+
+![An example scorecard](assets/scorecard.png)
 
 **If you have not built a personal AGI yet: use the standard as a build
 order.** Read the criteria as a plan rather than as a test. The weights are
@@ -175,6 +192,7 @@ STANDARD.md          the standard, generated; do not edit directly
 criteria/            the data: grammars, criteria, weights, retired IDs
 systems/             published assessments, one file per system
 scripts/build.py     regenerates STANDARD.md from the data
+assets/              figures and badges used in the documentation
 ASSESS.md            assessment protocol for AI assessors
 CONTRIBUTING.md      how to dispute a criterion or submit an assessment
 LIMITS.md            the structural limits of the instrument

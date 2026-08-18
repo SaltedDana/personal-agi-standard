@@ -154,6 +154,8 @@ def render(grammars, subgroups, retired, tiers):
       "architectures' worldviews (adversarial pass). "
       f"Maximum weighted score: {s['max_weighted']} points.")
     w("")
+    w("![The four tiers by weight](assets/tiers.png)")
+    w("")
     w("## What the standard optimizes for")
     w("")
     w("The standard optimizes for one operator's leverage, with trust held")

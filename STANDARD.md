@@ -15,6 +15,8 @@ Do not edit it directly; edit the data and rebuild.
 
 **Version 0.1.0.** 41 criteria in 4 tiers. 12 (29%) originate from rival architectures' worldviews (adversarial pass). Maximum weighted score: 644 points.
 
+![The four tiers by weight](assets/tiers.png)
+
 ## What the standard optimizes for
 
 The standard optimizes for one operator's leverage, with trust held
